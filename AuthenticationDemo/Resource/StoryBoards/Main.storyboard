@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fbp-UC-Art">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--LoginVC-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LoginVC" customModule="AuthenticationDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPE-Ef-Nhq">
+                                <rect key="frame" x="0.0" y="567" width="375" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="IEw-Yf-jDf"/>
+                                </constraints>
+                                <state key="normal" title="Authenticate Here!!!"/>
+                                <connections>
+                                    <action selector="authenticationButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tiD-cj-EXC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="uPE-Ef-Nhq" secondAttribute="trailing" id="F3w-Do-2Kj"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uPE-Ef-Nhq" secondAttribute="bottom" id="HnQ-jb-89Z"/>
+                            <constraint firstItem="uPE-Ef-Nhq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="q6X-HN-5gf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="DuQ-Ln-t9V"/>
+                    <connections>
+                        <outlet property="authenticationButton" destination="uPE-Ef-Nhq" id="gyh-8p-pSJ"/>
+                        <segue destination="Yrt-tJ-q5S" kind="show" identifier="LoginToHome" id="ucg-QD-t0Y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1024.8" y="133.5832083958021"/>
+        </scene>
+        <!--HomeVC-->
+        <scene sceneID="Gtf-qt-fXF">
+            <objects>
+                <viewController id="Yrt-tJ-q5S" customClass="HomeVC" customModule="AuthenticationDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LTC-uu-k7o"/>
+                        <viewControllerLayoutGuide type="bottom" id="npo-fj-dBy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Vp2-45-rrW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WzX-Y0-ljC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1785" y="134"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Lii-sh-skJ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fbp-UC-Art" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="07l-hh-5Ba">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Cqp-3b-Hda"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GrS-ll-1iG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="85.599999999999994" y="133.5832083958021"/>
+        </scene>
+    </scenes>
+</document>
