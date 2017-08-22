@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  AuthenticationDemo
+
+  Created by Mohini Sindhu  on 22/08/17.
+  Copyright © 2017 Mohini Sindhu . All rights reserved.
+*/
+
+//MARK: alert view strings
+"Alert" = "Alert";
+"ok" = "ok";
+
+//MARK: login screen strings
+"Login" = "Login";
+"Authentication is required for you to use this application" = "Authentication is required for you to use this application";
+
+//MARK: Home screen strings
+"Welcome to home" = "Welcome to home";

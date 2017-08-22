@@ -28,25 +28,25 @@ class LoginVC: UIViewController {
 	
 	//MARK: Initial Methods
 	func initialVCSetup(){
-		title = "Login"
+		title = NSLocalizedString("Login", comment: "")
 		
 		// authentication button appearances
 		self.authenticationButton.backgroundColor = Define.ColorConstants.kAppMainColor
 		self.authenticationButton.tintColor = Define.ColorConstants.kBaseColor
-		
 	}
 	
 	//MARK: Private methods
-	func handleTouch(){
+	func manageTouch(){
 		
 		let laContext = LAContext()
 		var error : NSError? = nil
-		let reasonString = "Authentication is required for you to use this application"
+		let reasonString = NSLocalizedString("Authentication is required for you to use this application", comment: "")
 		
 		if  laContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error)
 		{
 			laContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString, reply: { [unowned self] (success, evalPolicyError) in
 				
+				// if fingerprints successfully recognised
 				if success {
 					
 					OperationQueue.main.addOperation({ () -> Void in
@@ -54,80 +54,91 @@ class LoginVC: UIViewController {
 						self.performSegue(withIdentifier: Define.SeguesConstants.kLoginToHomeVCSegue, sender: self)
 					})
 				}
+					
+				//if failed to recognised fingerprints
 				else
 				{
-					switch (evalPolicyError! as NSError).code
-					{
-					case LAError.systemCancel.rawValue :
-						OperationQueue.main.addOperation({ () -> Void in
-							
-							Utils.promptMessageOnScreen("Authentication was canceellled by the system", viewContoller: self)
-						})
-					case LAError.userCancel.rawValue :
-						OperationQueue.main.addOperation({ () -> Void in
-							
-							Utils.promptMessageOnScreen("User cancelled the authentication", viewContoller: self)
-						})
-					case LAError.userFallback.rawValue :
-						OperationQueue.main.addOperation({ () -> Void in
-							
-							Utils.promptMessageOnScreen("User selected to eneter custom password", viewContoller: self)
-						})
-						
-						OperationQueue.main.addOperation({ () -> Void in
-							
-							Utils.promptMessageOnScreen("authentication failed", viewContoller: self)
-							
-						})
-						
-					default:
-						OperationQueue.main.addOperation({ () -> Void in
-							Utils.promptMessageOnScreen("authentication failed", viewContoller: self)
-						})
-					}
+					self.hangleInvalidTouch(_error: evalPolicyError!)
 				}
 			})
 		}
-			
+		 // if touch sensor has any issue
 		else{
-			// If the security policy cannot be evaluated then show a short message depending on the error.
-			switch error!.code{
+			self.handleTouchIssues(_error: error!)
+		}
+	}
+	
+	//method fetches reason if failed to recognised fingerprints
+	func hangleInvalidTouch(_error evalPolicyError:Error){
+		switch (evalPolicyError as NSError).code
+		{
+		case LAError.systemCancel.rawValue :
+			OperationQueue.main.addOperation({ () -> Void in
 				
-			case LAError.touchIDNotEnrolled.rawValue:
-				OperationQueue.main.addOperation({ () -> Void in
-					
-					Utils.promptMessageOnScreen("TouchID is not enrolled", viewContoller: self)
-				})
+				Utils.promptMessageOnScreen(NSLocalizedString("Authentication was canceellled by the system", comment: ""), viewContoller: self)
+			})
+		case LAError.userCancel.rawValue :
+			OperationQueue.main.addOperation({ () -> Void in
 				
-			case LAError.passcodeNotSet.rawValue:
+				Utils.promptMessageOnScreen(NSLocalizedString("User cancelled the authentication", comment: ""), viewContoller: self)
+			})
+		case LAError.userFallback.rawValue :
+			OperationQueue.main.addOperation({ () -> Void in
 				
-				OperationQueue.main.addOperation({ () -> Void in
-					
-					Utils.promptMessageOnScreen("A passcode has not been set", viewContoller: self)
-				})
-			default:
-				// The LAError.TouchIDNotAvailable case.
-				
-				OperationQueue.main.addOperation({ () -> Void in
-					
-					Utils.promptMessageOnScreen("TouchID not available", viewContoller: self)
-				})
-			}
+				Utils.promptMessageOnScreen(NSLocalizedString("User selected to eneter custom password", comment: ""), viewContoller: self)
+			})
 			
 			OperationQueue.main.addOperation({ () -> Void in
 				
-				Utils.promptMessageOnScreen(error?.localizedDescription ?? "", viewContoller: self)
+				Utils.promptMessageOnScreen(NSLocalizedString("authentication failed", comment: ""), viewContoller: self)
+				
 			})
-			// Show the custom alert view to allow users to enter the password.
+			
+		default:
+			OperationQueue.main.addOperation({ () -> Void in
+				Utils.promptMessageOnScreen(NSLocalizedString("authentication failed", comment: ""), viewContoller: self)
+			})
+		}
+	}
+	
+	// method retrieves reason if touch sensor has any issue
+	func handleTouchIssues(_error error:NSError){
+		// If the security policy cannot be evaluated then show a short message depending on the error.
+		switch error.code{
+			
+		case LAError.touchIDNotEnrolled.rawValue:
+			OperationQueue.main.addOperation({ () -> Void in
+				
+				Utils.promptMessageOnScreen(NSLocalizedString("TouchID is not enrolled", comment: ""), viewContoller: self)
+			})
+			
+		case LAError.passcodeNotSet.rawValue:
+			
+			OperationQueue.main.addOperation({ () -> Void in
+				
+				Utils.promptMessageOnScreen(NSLocalizedString("A passcode has not been set", comment: ""), viewContoller: self)
+			})
+		default:
+			// The LAError.TouchIDNotAvailable case.
+			
+			OperationQueue.main.addOperation({ () -> Void in
+				
+				Utils.promptMessageOnScreen(NSLocalizedString("TouchID not available", comment: ""), viewContoller: self)
+			})
 		}
 		
+		OperationQueue.main.addOperation({ () -> Void in
+			
+			Utils.promptMessageOnScreen(error.localizedDescription , viewContoller: self)
+		})
+		// Show the custom alert view to allow users to enter the password.
 	}
+	
 	
 	//MARK: Actions on VC
 	@IBAction func authenticationButtonPressed(_ sender: UIButton) {
 		
-		handleTouch()
+		manageTouch()
 	}
-	
 }
 
