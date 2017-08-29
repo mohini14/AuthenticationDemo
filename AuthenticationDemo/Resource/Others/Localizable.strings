@@ -13,6 +13,12 @@
 //MARK: login screen strings
 "Login" = "Login";
 "Authentication is required for you to use this application" = "Authentication is required for you to use this application";
+"User cancelled the authentication" = "User cancelled the authentication";
+"User selected to eneter custom password" = "User selected to eneter custom password";
+"authentication failed" = "authentication failed";
+"TouchID is not enrolled" = "TouchID is not enrolled";
+"A passcode has not been set" = "A passcode has not been set";
+"TouchID not available" = "TouchID not available";
 
 //MARK: Home screen strings
 "Welcome to home" = "Welcome to home";

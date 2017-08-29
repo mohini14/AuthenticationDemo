@@ -10,11 +10,10 @@ import UIKit
 
 class Utils: NSObject
 {
-	
 	class func promptMessageOnScreen (_ message : String, viewContoller: UIViewController) -> ()
 	{
 		let alert = UIAlertController(title: NSLocalizedString("Alert", comment: "") ,message: message , preferredStyle: UIAlertControllerStyle.alert)
-		alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler:nil))
+		alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment:""), style: UIAlertActionStyle.default, handler:nil))
 		viewContoller.present(alert, animated:true, completion:nil)
 	}
 }

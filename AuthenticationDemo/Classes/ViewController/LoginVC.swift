@@ -46,7 +46,7 @@ class LoginVC: UIViewController {
 		{
 			laContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString, reply: { [unowned self] (success, evalPolicyError) in
 				
-				// if fingerprints successfully recognised
+				// if fingerprints successfully recognised move to HOME page
 				if success {
 					
 					OperationQueue.main.addOperation({ () -> Void in
@@ -70,6 +70,7 @@ class LoginVC: UIViewController {
 	
 	//method fetches reason if failed to recognised fingerprints
 	func hangleInvalidTouch(_error evalPolicyError:Error){
+		
 		switch (evalPolicyError as NSError).code
 		{
 		case LAError.systemCancel.rawValue :
@@ -101,9 +102,9 @@ class LoginVC: UIViewController {
 		}
 	}
 	
-	// method retrieves reason if touch sensor has any issue
+	// If the security policy cannot be evaluated then show a short message depending on the error.
 	func handleTouchIssues(_error error:NSError){
-		// If the security policy cannot be evaluated then show a short message depending on the error.
+		
 		switch error.code{
 			
 		case LAError.touchIDNotEnrolled.rawValue:
@@ -119,8 +120,8 @@ class LoginVC: UIViewController {
 				Utils.promptMessageOnScreen(NSLocalizedString("A passcode has not been set", comment: ""), viewContoller: self)
 			})
 		default:
-			// The LAError.TouchIDNotAvailable case.
 			
+			// The LAError.TouchIDNotAvailable case.
 			OperationQueue.main.addOperation({ () -> Void in
 				
 				Utils.promptMessageOnScreen(NSLocalizedString("TouchID not available", comment: ""), viewContoller: self)

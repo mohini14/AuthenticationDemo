@@ -19,5 +19,4 @@ struct Define {
 	struct SeguesConstants {
 		static let kLoginToHomeVCSegue = "LoginToHome"
 	}
-	
 }
